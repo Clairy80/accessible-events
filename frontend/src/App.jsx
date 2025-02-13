@@ -1,11 +1,20 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/styles.css";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import Map from "./components/Map";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="container">
-      <h1>Barrierefreie Events</h1>
-      <p>Willkommen zu deinem Event-Portal.</p>
+      <Header />
+      <main>
+        <SearchBar />
+        <Map />
+      </main>
+      <Footer />
     </div>
   );
 }
