@@ -1,14 +1,31 @@
 import React from "react";
 
-function SearchBar() {
-  fetch
+const SearchBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    onSearch(searchTerm); // Sucht die Events, wenn der Benutzer etwas eingibt
+  };
+
   return (
-    <section className="search">
-      <label htmlFor="eventSearch" className="sr-only">Event suchen</label>
-      <input type="text" id="eventSearch" placeholder="Suche nach Events" />
-      <button>Suche</button>
-    </section>
+    <div className="search-container">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        placeholder="Suche nach Events..."
+        aria-label="Suche nach barrierefreien Events"
+      />
+      <button onClick={handleSearchSubmit} aria-label="Events suchen">
+        Suchen
+      </button>
+    </div>
   );
-}
+};
 
 export default SearchBar;
