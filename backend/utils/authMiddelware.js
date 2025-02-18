@@ -1,5 +1,11 @@
 import jwt from 'jsonwebtoken';
 
+
+export default function authMiddleware(req, res, next) {
+  // Beispiel-Logik
+  next();
+}
+
 export const protect = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
   if (!token) {
