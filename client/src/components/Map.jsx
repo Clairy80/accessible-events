@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+
+
 function Map() {
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

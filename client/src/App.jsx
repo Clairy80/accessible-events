@@ -1,23 +1,39 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-/*import "./assets/styles.css";*/
-import Header from "./components/Header.jsx";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Map from "./components/Map.jsx";
 import SearchBar from "./components/SearchBar.jsx";
-import Map from './components/Map.jsx'; 
-import Footer from "./components/Footer.jsx";
+import RegisterEvent from "./pages/RegisterEvent.jsx";
+import "./assets/styles.css";
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
-    <div className="container">
-      <Header />
-      <main className="container">
-        <SearchBar />
-        <Map /> 
-      </main>
-      <Footer /> 
-    </div>
+    <Router>
+      <div className="container">
+        <nav>
+          <ul>
+            <li><Link to="/">Event-Suche</Link></li>
+            <li><Link to="/register">Event eintragen</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={
+            <>
+              <SearchBar onSearch={handleSearch} />
+              <Map searchTerm={searchTerm} />
+            </>
+          } />
+          <Route path="/register" element={<RegisterEvent />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
 export default App;
-
