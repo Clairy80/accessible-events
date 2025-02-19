@@ -8,12 +8,16 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('Datenbankverbindung erfolgreich'))
+const port = process.env.PORT || 5001;
+
+mongoose.connect(process.env.MONGO_URI)  // Use the environment variable for MONGO_URI
+  .then(() => {
+    console.log('Datenbankverbindung erfolgreich');
+    app.listen(port, () => {
+      console.log(`Server läuft auf Port ${port}`);
+    });
+  })
   .catch(err => console.log(err));
 
 app.use('/api/users', userRoutes);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
 
