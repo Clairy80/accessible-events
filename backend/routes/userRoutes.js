@@ -2,21 +2,24 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 
-
-
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
+
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    return res.status(400).json({ message: 'Benutzername bereits vergeben' });
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ username, password: hashedPassword });
+  const user = new User({ username, password: hashedPassword, role: role || 'user' });
 
   try {
     await user.save();
-    res.status(201).json({ message: 'Benutzer erstellt' });
+    res.status(201).json({ message: 'Benutzer erfolgreich erstellt' });
   } catch (error) {
-    res.status(500).json({ message: 'Fehler beim Erstellen', error });
+    res.status(500).json({ message: 'Fehler beim Erstellen des Users', error });
   }
 });
 
@@ -32,7 +35,7 @@ router.post('/login', async (req, res) => {
 
     res.status(200).json({ message: 'Erfolgreich eingeloggt' });
   } catch (error) {
-    res.status(500).json({ message: 'Fehler bei der Authentifizierung', error });
+    res.status(500).json({ message: 'Fehler bei der Authentifizierung' });
   }
 });
 
