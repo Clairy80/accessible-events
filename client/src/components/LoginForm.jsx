@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 
 function LoginForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // Hinzugefügt für die Suche
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Hier könnte die Logik zum Verarbeiten der Login-Daten folgen
+    console.log("Name:", name);
     console.log("Email:", email);
     console.log("Password:", password);
   };
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+        />
+      </div>
       <div className="form-group">
         <label htmlFor="email">E-Mail</label>
         <input
@@ -33,6 +45,14 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Passwort"
           required
+        />
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Suche Event"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       <button type="submit">Einloggen</button>

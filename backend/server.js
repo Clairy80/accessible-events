@@ -1,7 +1,10 @@
+// src/server.js
+
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
+import eventRoutes from './routes/eventRoutes.js'; // Import der Event-Routen
 
 dotenv.config();
 
@@ -20,4 +23,4 @@ mongoose.connect(process.env.MONGO_URI)  // Use the environment variable for MON
   .catch(err => console.log(err));
 
 app.use('/api/users', userRoutes);
-
+app.use('/api/events', eventRoutes);  // Neue Event-Route hinzufügen

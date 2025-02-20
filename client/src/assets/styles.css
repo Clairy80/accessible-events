@@ -1,172 +1,102 @@
-/* Stelle sicher, dass der body etwas Abstand zu den Rändern hat */
+/* Allgemeine Stile */
 body {
   margin: 0;
-  padding: 20px;  /* Etwas Abstand vom Rand */
+  padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
 }
 
-/* Container für die gesamte App zentrieren */
-.app-container {
+/* Navbar */
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-/* Map Container - zentriert die Karte und das Suchfeld */
-.map-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 20px; /* Etwas Polsterung für den Abstand */
-  box-sizing: border-box; /* Um das Padding nicht das Layout zu verzerren */
-}
-
-/* Suchcontainer für Events */
-.search-container {
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 20px; /* Mehr Abstand zwischen Suche und Karte */
-  display: flex;
-  justify-content: center;
-}
-
-/* Karte - sorgt für angemessene Größe und Rand */
-#map {
-  width: 100%;
-  max-width: 800px;
-  height: 500px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-/* Eventliste - übersichtliche Auflistung der Events */
-.event-list {
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
+  background-color: #333;
   padding: 15px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sanfter Schatten für besseren Fokus */
-  text-align: left;
-  font-size: 16px;
+  color: white;
 }
 
-/* Eventliste - Listenstil entfernen */
-.event-list ul {
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+.navbar ul {
   list-style: none;
+  display: flex;
+  gap: 15px;
   padding: 0;
+  margin: 0;
 }
 
-/* Event-Einträge in der Liste */
-.event-list li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+.navbar ul li {
+  display: inline;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Barrierefreiheitseinstellungen */
+.accessibility-controls {
+  display: flex;
+  align-items: center;
+}
+
+.accessibility-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.accessibility-controls button:hover {
+  text-decoration: underline;
+}
+
+/* Schriftgrößenoptionen */
+.small-text {
   font-size: 14px;
 }
 
-/* Hover-Effekt für Listeneinträge */
-.event-list li:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
+.medium-text {
+  font-size: 18px;
 }
 
-/* Zusätzliche Formulargestaltung für die Eingabefelder */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 15px;
-  box-sizing: border-box;
+.large-text {
+  font-size: 22px;
 }
 
-/* Button Styling */
-button {
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 100%;
-  max-width: 400px;
+/* Hoher Kontrast */
+.high-contrast {
+  background-color: black !important;
+  color: yellow !important;
 }
 
-button:hover {
-  background-color: #45a049;
+/* Fokus-Styles für bessere Tastaturnavigation */
+button:focus, a:focus {
+  outline: 3px solid yellow;
 }
 
-/* Container für das Formular */
-.register-form-container {
+/* Flexbox für Karten- und Eventbereich */
+.main-content {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 450px;
-  margin-top: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.register-form-container h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: #333;
+.map-container {
+  flex: 1;
+  min-width: 50%;
 }
 
-/* Formular-Container */
-.register-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Formgruppen-Stil */
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 5px;
-}
-
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-/* Spezielle Stile für Login und Register Button */
-button {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
+.event-list {
+  flex: 1;
+  min-width: 40%;
 }

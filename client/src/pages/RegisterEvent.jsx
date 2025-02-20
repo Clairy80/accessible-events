@@ -1,58 +1,155 @@
+// src/components/RegisterEvent.jsx
+
 import React, { useState } from "react";
 
 const RegisterEvent = () => {
-  const [eventData, setEventData] = useState({
-    name: "",
-    description: "",
-    date: "",
-    time: "",
-    location: "",
-    accessibility: "",
+  const [event, setEvent] = useState("");
+  const [organizer, setOrganizer] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  
+  // Zustände für Barrierefreie Angebote
+  const [accessibilityOptions, setAccessibilityOptions] = useState({
+    ramp: false,
+    elevator: false,
+    parking: false,
+    quietRoom: false,
   });
 
-  const handleChange = (e) => {
-    setEventData({ ...eventData, [e.target.name]: e.target.value });
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setAccessibilityOptions((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(eventData),
-    });
-    if (response.ok) {
-      alert("Event erfolgreich eingetragen!");
-      setEventData({
-        name: "",
-        description: "",
-        date: "",
-        time: "",
-        location: "",
-        accessibility: "",
+
+    // Daten vorbereiten
+    const eventData = {
+      event,
+      organizer,
+      password,
+      email,
+      accessibilityOptions,
+    };
+
+    try {
+      // API Anfrage
+      const response = await fetch("/api/events/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventData),
       });
-    } else {
-      alert("Fehler beim Eintragen des Events.");
+
+      // Prüfen, ob die Antwort erfolgreich war
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Event successfully registered:", data);
+        // Optional: Benachrichtigung oder Redirect
+      } else {
+        console.log("Error registering event:", response.statusText);
+      }
+    } catch (error) {
+      console.log("Error:", error);
     }
   };
 
   return (
-    <div className="register-container">
-      <h2>Event eintragen</h2>
+    <div>
+      <h2>Event Registrierung</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Eventname" value={eventData.name} onChange={handleChange} required />
-        <textarea name="description" placeholder="Beschreibung" value={eventData.description} onChange={handleChange} required />
-        <input type="date" name="date" value={eventData.date} onChange={handleChange} required />
-        <input type="time" name="time" value={eventData.time} onChange={handleChange} required />
-        <input type="text" name="location" placeholder="Ort (Adresse oder Koordinaten)" value={eventData.location} onChange={handleChange} required />
-        <select name="accessibility" value={eventData.accessibility} onChange={handleChange} required>
-          <option value="">Barrierefreiheit</option>
-          <option value="wheelchair">Rollstuhlgerecht</option>
-          <option value="blind">Für Sehbehinderte</option>
-          <option value="deaf">Für Gehörlose</option>
-          <option value="other">Sonstiges</option>
-        </select>
-        <button type="submit">Event speichern</button>
+        <div>
+          <input
+            type="text"
+            placeholder="Event Name"
+            value={event}
+            onChange={(e) => setEvent(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Veranstalter"
+            value={organizer}
+            onChange={(e) => setOrganizer(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Passwort"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            placeholder="E-Mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* Barrierefreie Angebote */}
+        <div>
+          <label>Barrierefreie Angebote:</label>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="ramp"
+                checked={accessibilityOptions.ramp}
+                onChange={handleCheckboxChange}
+              />
+              Rampe
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="elevator"
+                checked={accessibilityOptions.elevator}
+                onChange={handleCheckboxChange}
+              />
+              Rollstuhlgerechter Aufzug
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="parking"
+                checked={accessibilityOptions.parking}
+                onChange={handleCheckboxChange}
+              />
+              Parkplatz
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="quietRoom"
+                checked={accessibilityOptions.quietRoom}
+                onChange={handleCheckboxChange}
+              />
+              Ruheraum für Autisten
+            </label>
+          </div>
+        </div>
+
+        <button type="submit">Event Registrieren</button>
       </form>
     </div>
   );

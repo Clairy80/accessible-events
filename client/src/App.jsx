@@ -16,8 +16,8 @@ const App = () => {
 
   return (
     <Router>
-      <div className="container">
-        <nav>
+      <div className="app-container">
+        <nav className="navbar">
           <ul>
             <li><Link to="/">Event-Suche</Link></li>
             <li><Link to="/register-event">Event eintragen</Link></li>
@@ -26,17 +26,19 @@ const App = () => {
           </ul>
         </nav>
 
-        <Routes>
-          <Route path="/" element={
-            <>
-              <SearchBar onSearch={handleSearch} />
-              <Map searchTerm={searchTerm} />
-            </>
-          } />
-          <Route path="/register-event" element={<RegisterEvent />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-        </Routes>
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <SearchBar onSearch={handleSearch} />
+                <Map searchTerm={searchTerm} />
+              </>
+            } />
+            <Route path="/register-event" element={<RegisterEvent />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
