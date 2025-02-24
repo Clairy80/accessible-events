@@ -1,7 +1,7 @@
 /* Allgemeine Stile */
 body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
 }
@@ -16,14 +16,6 @@ body {
   color: white;
 }
 
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
 .navbar ul {
   list-style: none;
   display: flex;
@@ -34,6 +26,13 @@ body {
 
 .navbar ul li {
   display: inline;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
 }
 
 .navbar a:hover {
@@ -62,7 +61,6 @@ body {
 .accessibility-controls button:hover {
   background: white;
   color: black;
-  text-decoration: none;
 }
 
 /* Schriftgrößenoptionen */
@@ -90,27 +88,38 @@ button:focus, a:focus {
   box-shadow: 0 0 5px yellow;
 }
 
-/* Flexbox für Karten- und Eventbereich */
+/* Layout für Hauptinhalt */
 .main-content {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
-  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
 }
 
+/* Kartenbereich */
 .map-container {
-  flex: 1;
-  min-width: 50%;
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
   border: 2px solid #ccc;
   border-radius: 10px;
-  padding: 10px;
   background: white;
 }
 
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* Event-Liste */
 .event-list {
-  flex: 1;
-  min-width: 40%;
+  width: 100%;
+  max-width: 100%;
   border: 2px solid #ccc;
   border-radius: 10px;
   padding: 10px;

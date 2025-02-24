@@ -98,7 +98,7 @@ function Map() {
       <SearchBar onSearch={handleSearch} />
       <div
         id="map"
-        style={{ width: "100%", height: "500px", outline: "none" }}
+        style={{ width: "100vw", height: "500px", outline: "none" }}
         role="application"
         aria-label="Interaktive Karte zur Eventsuche"
         tabIndex="0"
